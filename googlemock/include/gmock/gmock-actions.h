@@ -367,9 +367,10 @@ class Action {
   // Construct an Action from a specified callable.
   // This cannot take std::function directly, because then Action would not be
   // directly constructible from lambda (it would require two conversions).
+  // The space in < :: is intentional to assist older compilers.
   template <typename G,
             typename = typename ::std::enable_if<
-                ::std::is_constructible<::std::function<F>, G>::value>::type>
+                ::std::is_constructible< ::std::function<F>, G>::value>::type>
   Action(G&& fun) : fun_(::std::forward<G>(fun)) {}  // NOLINT
 #endif
 
